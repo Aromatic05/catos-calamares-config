@@ -74,6 +74,7 @@
           - poppler-glib
           - xdg-user-dirs
           - xdg-utils
+          - catos-bibata-cursor
       - name: "filesystem"
         description: "Filesystem tools and apps"
         selected: true
@@ -164,6 +165,7 @@
           - nano
           - vim
           - openssh
+          - eza
 - name: KDE-Desktop
   description: "KDE-Plasma Desktop - Simple by default, powerful when needed."
   hidden: false
@@ -368,6 +370,9 @@
     - metacity
     - lightdm
     - lightdm-gtk-greeter
+    - cinnamon-translations
+    - catos-orchis-gtk-theme
+    - tela-circle-icon-theme-all
     - catos-cinnamon-settings
 - name: "Budgie-Desktop"
   description: "Budgie - an independent, familiar, and modern desktop."
