@@ -93,7 +93,7 @@
           - adobe-source-han-sans-cn-fonts
           # - adobe-source-han-sans-jp-fonts
           # - adobe-source-han-sans-kr-fonts
-          - awesome-terminal-fonts
+          - wqy-zenhei
           - noto-fonts-emoji
           - ttf-jetbrains-mono
           - ttf-jetbrains-mono-nerd
@@ -103,9 +103,6 @@
           - noto-fonts-cjk 
           - noto-fonts-emoji 
           - noto-fonts-extra
-          - cantarell-fonts
-          - freetype2
-          - opendesktop-fonts
       - name: "audio"
         description: "Audio handling tools apps and libs"
         selected: true
@@ -226,93 +223,33 @@
   critical: true
   packages:
     - hyprland
-    - hyprcursor
-    - hypridle
-    - hyprlang
     - hyprpaper
-    - hyprpicker
     - hyprlock
-    - hyprutils
-    - hyprwayland-scanner
-    - xdg-dbus-proxy
-    - xdg-desktop-portal
-    - xdg-desktop-portal-gtk
-    - xdg-desktop-portal-hyprland
-    - xdg-user-dirs
-    - xdg-utils
-    - libxdg-basedir
-    - python-pyxdg
-    - swww
-    - gtk3
-    - gtk4
-    - adw-gtk-theme
-    - libdbusmenu-gtk3
-    - python-pip
-    - python-pillow
-    - sddm
-    - nm-connection-editor
-    - network-manager-applet
-    - networkmanager
-    - gnome-bluetooth-3.0
-    - bluez
-    - bluez-libs
-    - bluez-utils
+    - hypridle
+    - hyprpicker
+    - hyprpolkitagent
+    - swayidle
+    - swaylock
+    - waybar
+    - mako
     - cliphist
-    - wl-clipboard
-    - libadwaita
-    - swappy
-    - nwg-look
+    - network-manager-applet
     - pavucontrol
-    - polkit-gnome
-    - brightnessctl
-    - man-pages
-    - gvfs
-    - xarchiver
-    - zip
-    - imagemagick
     - blueman
-    - fastfetch
-    - gum
-    - python-pywayland
-    - dbus
-    - libdrm
-    - mesa
-    - fwupd
-    - bun-bin
-    - pipewire
-    - wireplumber
-    - udiskie
-    - lm_sensors
-    - gnome-system-monitor
-    - playerctl
-    - ttf-meslo-nerd
-    - ttf-font-awesome
-    - ttf-opensans
-    - ttf-roboto
-    - lshw
-    - fontconfig
-    - dart-sass
-    - cpio
-    - meson
-    - cmake
-    - gtksourceview3
-    - gtksourceviewmm
-    - cairomm
-    - gtkmm3
-    - tinyxml2
-    - python-requests
-    - python-numpy
+    - ttf-fira-sans
+    - ttf-fira-code
+    - ttf-firacode-nerd
+    - rofi-wayland
+    - wlogout
     - thunar
-    - hyprshot
-    - sddm-theme-corners-git
-    - wl-gammarelay-rs
-    - bibata-cursor-theme
-    - ttf-material-symbols-variable-git
-    - python-materialyoucolor-git
-    - catos-hyprland-settings
-    - tela-icon-theme-git
     - kitty
-    - agsv1
+    - htop
+    - nwg-look
+    - ristretto
+    - slurp
+    - grim
+    - mousepad
+    - catos-hyprland-simple-settings
 - name: "Xfce4"
   description: "Xfce is a lightweight desktop environment for UNIX-like operating systems. It aims to be fast and low on system resources, while still being visually appealing and user friendly."
   hidden: false
@@ -407,6 +344,10 @@
     - sushi
     - totem
     - xdg-user-dirs-gtk
+    - catos-bibata-cursor
+    - catos-orchis-gtk-theme
+    - tela-circle-icon-theme-all
+    - catos-budgie-settings
 - name: "LXDE-Desktop"
   description: "The Lightweight Desktop Environment."
   hidden: false
@@ -492,116 +433,120 @@
     - mate-extra
     - network-manager-applet
     - xdg-user-dirs-gtk
-- name: "Openbox"
-  description: "Openbox is a highly configurable, floating window manager with extensive standards support."
-  hidden: false
-  selected: false
-  critical: true
-  packages:
-    - obconf
-    - libwnck3
-    - acpi
-    - arandr
-    - archlinux-xdg-menu
-    - dex
-    - dmenu
-    - dunst
-    - feh
-    - gtk-engine-murrine
-    - gvfs
-    - gvfs-afc
-    - gvfs-gphoto2
-    - gvfs-mtp
-    - gvfs-nfs
-    - gvfs-smb
-    - jgmenu
-    - jq
-    - lightdm
-    - lightdm-slick-greeter
-    - lxappearance-gtk3
-    - mpv
-    - network-manager-applet
-    - nitrogen
-    - obconf
-    - openbox
-    - pasystray
-    - picom
-    - polkit-gnome
-    - rofi
-    - scrot
-    - slock
-    - sysstat
-    - thunar
-    - thunar-archive-plugin
-    - thunar-media-tags-plugin
-    - thunar-volman
-    - tint2
-    - ttf-nerd-fonts-symbols
-    - tumbler
-    - xbindkeys
-    #- xcursor-neutral
-    - xdg-user-dirs-gtk
-    - xed
-    - xfce4-terminal
-- name: Deepin-Desktop
-  description: "Deepin-Desktop"
-  hidden: false
-  selected: false
-  expanded: false
-  critical: true
-  packages:
-    - deepin
-    # deepin-extra
-    - lightdm
-    - lightdm-slick-greeter
-- name: Cutefish-Desktop
-  description: "Cutefish-Desktop"
-  hidden: false
-  selected: false
-  expanded: false
-  critical: true
-  packages:
-    - cutefish
-    - lightdm
-    - lightdm-slick-greeter
-- name: "UKUI"
-  description: "It is a lightweight desktop environment, which consumes few resources and works with older computers. It has been developed with GTK and Qt technologies. Its visual appearance is similar to Windows 7, making it easier for new users of Linux."
-  hidden: false
-  selected: false
-  critical: true
-  packages:
-    - sddm
-    - thunar
-    - thunar-archive-plugin
-    - thunar-volman
-    - peony
-    - xfce4-terminal
-    - qt5-ukui-platformtheme
-    - ukui-biometric-auth
-    - ukui-control-center
-    - ukui-interface
-    - ukui-media
-    - ukui-menu
-    - ukui-menus
-    - ukui-notebook
-    - ukui-panel
-    - ukui-power-manager
-    - ukui-screensaver
-    - ukui-session-manager
-    - ukui-settings-daemon
-    - ukui-sidebar
-    - ukui-system-monitor
-    - ukui-themes
-    - ukui-wallpapers
-    - ukui-window-switch
-    - mate-terminal
-    - mate-system-monitor
-    - mate-control-center
-    - redshift
-    - gnome-screenshot
-    - accountsservice
-    - gvfs
-    - qt5-quickcontrols
+    - catos-bibata-cursor
+    - catos-orchis-gtk-theme
+    - tela-circle-icon-theme-all
+    - catos-mate-settings
+# - name: "Openbox"
+#   description: "Openbox is a highly configurable, floating window manager with extensive standards support."
+#   hidden: false
+#   selected: false
+#   critical: true
+#   packages:
+#     - obconf
+#     - libwnck3
+#     - acpi
+#     - arandr
+#     - archlinux-xdg-menu
+#     - dex
+#     - dmenu
+#     - dunst
+#     - feh
+#     - gtk-engine-murrine
+#     - gvfs
+#     - gvfs-afc
+#     - gvfs-gphoto2
+#     - gvfs-mtp
+#     - gvfs-nfs
+#     - gvfs-smb
+#     - jgmenu
+#     - jq
+#     - lightdm
+#     - lightdm-slick-greeter
+#     - lxappearance-gtk3
+#     - mpv
+#     - network-manager-applet
+#     - nitrogen
+#     - obconf
+#     - openbox
+#     - pasystray
+#     - picom
+#     - polkit-gnome
+#     - rofi
+#     - scrot
+#     - slock
+#     - sysstat
+#     - thunar
+#     - thunar-archive-plugin
+#     - thunar-media-tags-plugin
+#     - thunar-volman
+#     - tint2
+#     - ttf-nerd-fonts-symbols
+#     - tumbler
+#     - xbindkeys
+#     #- xcursor-neutral
+#     - xdg-user-dirs-gtk
+#     - xed
+#     - xfce4-terminal
+# - name: Deepin-Desktop
+#   description: "Deepin-Desktop"
+#   hidden: false
+#   selected: false
+#   expanded: false
+#   critical: true
+#   packages:
+#     - deepin
+#     # deepin-extra
+#     - lightdm
+#     - lightdm-slick-greeter
+# - name: Cutefish-Desktop
+#   description: "Cutefish-Desktop"
+#   hidden: false
+#   selected: false
+#   expanded: false
+#   critical: true
+#   packages:
+#     - cutefish
+#     - lightdm
+#     - lightdm-slick-greeter
+# - name: "UKUI"
+#   description: "It is a lightweight desktop environment, which consumes few resources and works with older computers. It has been developed with GTK and Qt technologies. Its visual appearance is similar to Windows 7, making it easier for new users of Linux."
+#   hidden: false
+#   selected: false
+#   critical: true
+#   packages:
+#     - sddm
+#     - thunar
+#     - thunar-archive-plugin
+#     - thunar-volman
+#     - peony
+#     - xfce4-terminal
+#     - qt5-ukui-platformtheme
+#     - ukui-biometric-auth
+#     - ukui-control-center
+#     - ukui-interface
+#     - ukui-media
+#     - ukui-menu
+#     - ukui-menus
+#     - ukui-notebook
+#     - ukui-panel
+#     - ukui-power-manager
+#     - ukui-screensaver
+#     - ukui-session-manager
+#     - ukui-settings-daemon
+#     - ukui-sidebar
+#     - ukui-system-monitor
+#     - ukui-themes
+#     - ukui-wallpapers
+#     - ukui-window-switch
+#     - mate-terminal
+#     - mate-system-monitor
+#     - mate-control-center
+#     - redshift
+#     - gnome-screenshot
+#     - accountsservice
+#     - gvfs
+#     - qt5-quickcontrols
 - name: "CPU specific Microcode update packages"
   description: "Microcode update image for AMD and Intel CPU"
   hidden: false
