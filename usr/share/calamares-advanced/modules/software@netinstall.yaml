@@ -1,0 +1,87 @@
+- name: 输入法
+  description: "输入法"
+  hidden: false
+  selected: true
+  expanded: false
+  critical: true
+  packages:
+   - fcitx5-im
+   - fcitx5-chinese-addons
+   - fcitx5-pinyin-moegirl
+   - fcitx5-pinyin-zhwiki
+   - fcitx5-material-color
+   - kwindowsystem
+- name: 字体
+  description: "字体"
+  hidden: false
+  selected: true
+  expanded: false
+  critical: true
+  packages:
+   - ttf-jetbrains-mono
+   - ttf-jetbrains-mono-nerd
+   - ttf-hack
+   - ttf-hack-nerd
+   - wqy-zenhei
+   - noto-fonts 
+   - noto-fonts-cjk 
+   - noto-fonts-emoji 
+   - noto-fonts-extra
+- name: Firefox浏览器
+  description: "浏览器"
+  hidden: false
+  selected: true
+  expanded: false
+  critical: true
+  packages:
+   - firefox
+   - firefox-i18n-zh-cn
+- name: 其他浏览器
+  description: "浏览器"
+  hidden: false
+  selected: false
+  expanded: true
+  critical: true
+  packages:
+   - chromium
+   - microsoft-edge-stable-bin
+   - google-chrome
+- name: 影音播放
+  description: "影音播放"
+  hidden: false
+  selected: true
+  expanded: false
+  critical: true
+  packages:
+   - mpv
+   - vlc
+- name: Shell
+  description: "Shell"
+  hidden: false
+  selected: true
+  expanded: false
+  critical: true
+  packages:
+   - zsh
+   - zsh-completions
+   - zsh-autosuggestions
+   - zsh-completions
+   - zsh-syntax-highlighting
+   - zsh-theme-powerlevel10k-git
+   - fish
+- name: Other Tools
+  description: "Tools"
+  hidden: false
+  selected: true
+  expanded: false
+  critical: true
+  packages:
+   - timeshift
+   - grub-btrfs
+   - paru
+   - yay
+   - octopi
+   - htop
+   - duperemove
+   - neovim
+   - yazi

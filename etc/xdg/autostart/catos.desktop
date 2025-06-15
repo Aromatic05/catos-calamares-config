@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Install CatOS
+Name[zh_CN]=安装CatOS
+GenericName=Live Installer
+Comment=Install the operating system to disk
+Comment[zh_CN]=CatOS安装器
+Exec=calamares_polkit
+Icon=calamares
+Terminal=false
+StartupNotify=true
+Type=Application
+Categories=Qt;System;
