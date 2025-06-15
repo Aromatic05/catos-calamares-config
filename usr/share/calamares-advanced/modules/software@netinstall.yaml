@@ -11,31 +11,6 @@
    - fcitx5-pinyin-zhwiki
    - fcitx5-material-color
    - kwindowsystem
-- name: 字体
-  description: "字体"
-  hidden: false
-  selected: true
-  expanded: false
-  critical: true
-  packages:
-   - ttf-jetbrains-mono
-   - ttf-jetbrains-mono-nerd
-   - ttf-hack
-   - ttf-hack-nerd
-   - wqy-zenhei
-   - noto-fonts 
-   - noto-fonts-cjk 
-   - noto-fonts-emoji 
-   - noto-fonts-extra
-- name: Firefox浏览器
-  description: "浏览器"
-  hidden: false
-  selected: true
-  expanded: false
-  critical: true
-  packages:
-   - firefox
-   - firefox-i18n-zh-cn
 - name: 其他浏览器
   description: "浏览器"
   hidden: false
@@ -69,6 +44,7 @@
    - zsh-syntax-highlighting
    - zsh-theme-powerlevel10k-git
    - fish
+   - catos-fish-config
 - name: Other Tools
   description: "Tools"
   hidden: false

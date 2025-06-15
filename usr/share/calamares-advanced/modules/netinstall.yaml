@@ -350,8 +350,8 @@
     - xfce4-weather-plugin
     - xfce4-whiskermenu-plugin
     - xfce4-xkb-plugin
-    - arc-gtk-theme
-    - tela-icon-theme-git
+    - catos-orchis-gtk-theme
+    - tela-circle-icon-theme-all
     - catos-xfce-settings
     - catos-lightdm-slick-theme
 - name: "Cinnamon"
@@ -368,6 +368,7 @@
     - metacity
     - lightdm
     - lightdm-gtk-greeter
+    - catos-cinnamon-settings
 - name: "Budgie-Desktop"
   description: "Budgie - an independent, familiar, and modern desktop."
   hidden: false
