@@ -279,6 +279,7 @@
     - xed
     - xfce4
     - xfce4-battery-plugin
+    - xfce4-clipman-plugin
     - xfce4-datetime-plugin
     - xfce4-mount-plugin
     - xfce4-netload-plugin
