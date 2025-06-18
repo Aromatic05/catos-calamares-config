@@ -222,6 +222,8 @@
   expanded: false
   critical: true
   packages:
+    - sddm
+    - uwsm
     - hyprland
     - hyprpaper
     - hyprlock
