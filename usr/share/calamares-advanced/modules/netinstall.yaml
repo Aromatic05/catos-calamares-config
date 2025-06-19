@@ -252,7 +252,7 @@
     - grim
     - mousepad
     - catos-hyprland-simple-settings
-- name: Hyprland-Desktop-Quickshell
+- name: Hyprland-Quickshell
   description: "Hyprland Wayland Desktop Environment"
   hidden: false
   selected: false
