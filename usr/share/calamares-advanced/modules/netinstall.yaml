@@ -223,6 +223,7 @@
   critical: true
   packages:
     - sddm
+    - catos-sddm-theme
     - uwsm
     - hyprland
     - hyprpaper
@@ -260,6 +261,7 @@
   critical: true
   packages:
     - sddm
+    - catos-sddm-theme
     - uwsm
     - hyprland
     - hyprpaper
@@ -275,6 +277,9 @@
     - slurp
     - grim
     - mousepad
+    - network-manager-applet
+    - blueman
+    - rofi-wayland
     - caelestia-dotfiles
     - caelestia-meta
 - name: "Xfce4"
