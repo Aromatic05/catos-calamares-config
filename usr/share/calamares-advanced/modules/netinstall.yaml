@@ -251,7 +251,11 @@
     - ristretto
     - slurp
     - grim
-    - mousepad
+    - pamixer
+    - xed
+    - wl-clipboard
+    - catos-orchis-gtk-theme
+    - tela-circle-icon-theme-all
     - catos-hyprland-simple-settings
 - name: Hyprland-Quickshell
   description: "Hyprland Wayland Desktop Environment"
@@ -344,6 +348,37 @@
     - catos-orchis-gtk-theme
     - tela-circle-icon-theme-all
     - catos-cinnamon-settings
+- name: "Cosmic"
+  description: "Linux desktop, which provides an environment that features advanced functionality and a responsive design."
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - cosmic-app-library
+    - cosmic-applets
+    - cosmic-bg
+    - cosmic-comp
+    - cosmic-files
+    - cosmic-greeter
+    - cosmic-icon-theme
+    - cosmic-launcher
+    - cosmic-notifications
+    - cosmic-osd
+    - cosmic-panel
+    - cosmic-player
+    - cosmic-randr
+    - cosmic-screenshot
+    - cosmic-session
+    - cosmic-settings
+    - cosmic-settings-daemon
+    - cosmic-terminal
+    - cosmic-text-editor
+    - cosmic-wallpapers
+    - cosmic-workspaces
+    - notification-daemon
+    - sddm
+    - xdg-desktop-portal-cosmic
+    - xorg-xwayland
 - name: "Budgie-Desktop"
   description: "Budgie - an independent, familiar, and modern desktop."
   hidden: false
