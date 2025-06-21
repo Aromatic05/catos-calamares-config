@@ -42,7 +42,7 @@
         packages:
            - fish
            - catos-fish-config
-        - name: "Zsh Shell"
+      - name: "Zsh Shell"
         description: "Zsh Shell"
         selected: false
         packages:
