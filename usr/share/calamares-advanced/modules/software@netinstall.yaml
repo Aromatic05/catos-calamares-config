@@ -33,18 +33,24 @@
 - name: Shell
   description: "Shell"
   hidden: false
-  selected: true
-  expanded: false
+  expanded: true
   critical: true
-  packages:
-   - zsh
-   - zsh-completions
-   - zsh-autosuggestions
-   - zsh-completions
-   - zsh-syntax-highlighting
-   - zsh-theme-powerlevel10k-git
-   - fish
-   - catos-fish-config
+  subgroups:
+      - name: "Fish Shell"
+        description: "Fish Shell"
+        selected: true
+        packages:
+           - fish
+           - catos-fish-config
+        - name: "Zsh Shell"
+        description: "Zsh Shell"
+        selected: false
+        packages:
+           - zsh
+           - zsh-completions
+           - zsh-autosuggestions
+           - zsh-syntax-highlighting
+           - zsh-theme-powerlevel10k-git
 - name: Other Tools
   description: "Tools"
   hidden: false
@@ -59,5 +65,3 @@
    - octopi
    - htop
    - duperemove
-   - neovim
-   - yazi

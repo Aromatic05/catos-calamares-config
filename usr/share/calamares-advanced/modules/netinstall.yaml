@@ -97,8 +97,6 @@
           - noto-fonts-emoji
           - ttf-jetbrains-mono
           - ttf-jetbrains-mono-nerd
-          - ttf-hack
-          - ttf-hack-nerd
           - noto-fonts 
           - noto-fonts-cjk 
           - noto-fonts-emoji 
@@ -231,6 +229,7 @@
     - hypridle
     - hyprpicker
     - hyprpolkitagent
+    - hyprshot
     - swayidle
     - swaylock
     - waybar
@@ -239,9 +238,9 @@
     - network-manager-applet
     - pavucontrol
     - blueman
-    - ttf-fira-sans
-    - ttf-fira-code
-    - ttf-firacode-nerd
+    - baobab
+    - waypaper
+    - xsensors
     - rofi-wayland
     - wlogout
     - thunar
@@ -254,6 +253,17 @@
     - pamixer
     - xed
     - wl-clipboard
+    - awesome-terminal-fonts
+    - cantarell-fonts
+    - opendesktop-fonts
+    - ttf-bitstream-vera
+    - ttf-dejavu
+    - ttf-liberation
+    - ttf-opensans
+    - ttf-meslo-nerd
+    - ttf-fira-sans
+    - ttf-fira-code
+    - ttf-firacode-nerd
     - catos-orchis-gtk-theme
     - tela-circle-icon-theme-all
     - catos-hyprland-simple-settings
@@ -377,6 +387,7 @@
     - cosmic-workspaces
     - notification-daemon
     - sddm
+    - catos-sddm-theme
     - xdg-desktop-portal-cosmic
     - xorg-xwayland
 - name: "Budgie-Desktop"
@@ -416,6 +427,7 @@
     - catos-orchis-gtk-theme
     - tela-circle-icon-theme-all
     - catos-budgie-settings
+    - catos-lightdm-slick-theme
 - name: "LXDE-Desktop"
   description: "The Lightweight Desktop Environment."
   hidden: false
@@ -447,6 +459,7 @@
     - lxterminal
     - lightdm
     - lightdm-slick-greeter
+    - catos-lightdm-slick-theme
     - notification-daemon
     - openbox
     - pcmanfm-gtk3
@@ -479,6 +492,7 @@
     - print-manager
     - qt5-translations
     - sddm
+    - catos-sddm-theme
     - xdg-utils
     - xscreensaver
     - xsettingsd
@@ -497,6 +511,7 @@
     - gvfs-smb
     - lightdm
     - lightdm-slick-greeter
+    - catos-lightdm-slick-theme
     - mate
     - mate-extra
     - network-manager-applet
@@ -577,44 +592,45 @@
 #     - cutefish
 #     - lightdm
 #     - lightdm-slick-greeter
-# - name: "UKUI"
-#   description: "It is a lightweight desktop environment, which consumes few resources and works with older computers. It has been developed with GTK and Qt technologies. Its visual appearance is similar to Windows 7, making it easier for new users of Linux."
-#   hidden: false
-#   selected: false
-#   critical: true
-#   packages:
-#     - sddm
-#     - thunar
-#     - thunar-archive-plugin
-#     - thunar-volman
-#     - peony
-#     - xfce4-terminal
-#     - qt5-ukui-platformtheme
-#     - ukui-biometric-auth
-#     - ukui-control-center
-#     - ukui-interface
-#     - ukui-media
-#     - ukui-menu
-#     - ukui-menus
-#     - ukui-notebook
-#     - ukui-panel
-#     - ukui-power-manager
-#     - ukui-screensaver
-#     - ukui-session-manager
-#     - ukui-settings-daemon
-#     - ukui-sidebar
-#     - ukui-system-monitor
-#     - ukui-themes
-#     - ukui-wallpapers
-#     - ukui-window-switch
-#     - mate-terminal
-#     - mate-system-monitor
-#     - mate-control-center
-#     - redshift
-#     - gnome-screenshot
-#     - accountsservice
-#     - gvfs
-#     - qt5-quickcontrols
+- name: "UKUI"
+  description: "It is a lightweight desktop environment, which consumes few resources and works with older computers. It has been developed with GTK and Qt technologies. Its visual appearance is similar to Windows 7, making it easier for new users of Linux."
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - sddm
+    - catos-sddm-theme
+    - thunar
+    - thunar-archive-plugin
+    - thunar-volman
+    - peony
+    - xfce4-terminal
+    - qt5-ukui-platformtheme
+    - ukui-biometric-auth
+    - ukui-control-center
+    - ukui-interface
+    - ukui-media
+    - ukui-menu
+    - ukui-menus
+    - ukui-notebook
+    - ukui-panel
+    - ukui-power-manager
+    - ukui-screensaver
+    - ukui-session-manager
+    - ukui-settings-daemon
+    - ukui-sidebar
+    - ukui-system-monitor
+    - ukui-themes
+    - ukui-wallpapers
+    - ukui-window-switch
+    - mate-terminal
+    - mate-system-monitor
+    - mate-control-center
+    - redshift
+    - gnome-screenshot
+    - accountsservice
+    - gvfs
+    - qt5-quickcontrols
 - name: "CPU specific Microcode update packages"
   description: "Microcode update image for AMD and Intel CPU"
   hidden: false
