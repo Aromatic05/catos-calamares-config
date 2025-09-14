@@ -51,6 +51,31 @@
            - zsh-autosuggestions
            - zsh-syntax-highlighting
            - zsh-theme-powerlevel10k-git
+- name: Extra Kernels
+  description: "Kernels"
+  hidden: false
+  selected: false
+  expanded: true
+  critical: true
+  subgroups:
+      - name: "Zen Kernel"
+        description: "Zen Kernel"
+        selected: false
+        packages:
+           - linux-zen
+           - linux-zen-headers
+      - name: "LTS Kernel"
+        description: "LTS Kernel"
+        selected: false
+        packages:
+           - linux-lts
+           - linux-lts-headers
+      - name: "Hardened Kernel"
+        description: "Hardened Kernel"
+        selected: false
+        packages:
+           - linux-hardened
+           - linux-hardened-headers
 - name: Other Tools
   description: "Tools"
   hidden: false
