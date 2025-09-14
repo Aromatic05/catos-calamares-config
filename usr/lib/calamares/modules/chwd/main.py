@@ -31,7 +31,7 @@ class HostError(Exception):
 
 
 def pretty_name():
-    return _("Installing needed drivers for CachyOS...")
+    return _("Installing needed drivers for CatOS...")
 
 
 def line_cb(line):
