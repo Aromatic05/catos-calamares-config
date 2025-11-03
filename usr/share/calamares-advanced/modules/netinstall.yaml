@@ -91,11 +91,10 @@
         packages:
           - wqy-zenhei
           - noto-fonts-emoji
-          - ttf-jetbrains-mono
           - ttf-jetbrains-mono-nerd
-          - noto-fonts 
-          - noto-fonts-cjk 
-          - noto-fonts-emoji 
+          - noto-fonts
+          - noto-fonts-cjk
+          - noto-fonts-emoji
           - noto-fonts-extra
       - name: "audio"
         description: "Audio handling tools apps and libs"
