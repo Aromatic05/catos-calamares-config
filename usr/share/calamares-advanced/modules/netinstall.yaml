@@ -23,7 +23,6 @@
         packages:
           - dhclient
           - dnsmasq
-          - dnsutils
           - ethtool
           - iwd
           - modemmanager
@@ -306,27 +305,7 @@
   selected: false
   critical: true
   packages:
-    - cosmic-app-library
-    - cosmic-applets
-    - cosmic-bg
-    - cosmic-comp
-    - cosmic-files
-    - cosmic-greeter
-    - cosmic-icon-theme
-    - cosmic-launcher
-    - cosmic-notifications
-    - cosmic-osd
-    - cosmic-panel
-    - cosmic-player
-    - cosmic-randr
-    - cosmic-screenshot
-    - cosmic-session
-    - cosmic-settings
-    - cosmic-settings-daemon
-    - cosmic-terminal
-    - cosmic-text-editor
-    - cosmic-wallpapers
-    - cosmic-workspaces
+    - cosmic
     - notification-daemon
     - sddm
     - catos-sddm-theme
@@ -376,36 +355,22 @@
   selected: false
   critical: true
   packages:
+    - lxde
     - celluloid
     - file-roller
     - galculator
     - gnome-screenshot
-    - gpicview
     - gvfs
     - gvfs-afc
     - gvfs-gphoto2
     - gvfs-mtp
     - gvfs-nfs
     - gvfs-smb
-    - lxappearance-gtk3
     - obconf
-    - lxde-common
-    - lxde-icon-theme
-    - lxhotkey-gtk3
-    - lxinput-gtk3
-    - lxlauncher-gtk3
-    - lxpanel-gtk3
-    - lxrandr-gtk3
-    - lxsession-gtk3
-    - lxtask-gtk3
-    - lxterminal
     - lightdm
     - lightdm-slick-greeter
     - catos-lightdm-slick-theme
     - notification-daemon
-    - openbox
-    - pcmanfm-gtk3
-    - lxmusic
     - network-manager-applet
     - xdg-user-dirs-gtk
     - xed
@@ -541,30 +506,12 @@
   critical: true
   packages:
     - sddm
+    - ukui
     - catos-sddm-theme
     - thunar
     - thunar-archive-plugin
     - thunar-volman
-    - peony
     - xfce4-terminal
-    - qt5-ukui-platformtheme
-    - ukui-biometric-auth
-    - ukui-control-center
-    - ukui-interface
-    - ukui-media
-    - ukui-menu
-    - ukui-menus
-    - ukui-notebook
-    - ukui-panel
-    - ukui-power-manager
-    - ukui-screensaver
-    - ukui-session-manager
-    - ukui-settings-daemon
-    - ukui-sidebar
-    - ukui-system-monitor
-    - ukui-themes
-    - ukui-wallpapers
-    - ukui-window-switch
     - mate-terminal
     - mate-system-monitor
     - mate-control-center
