@@ -11,6 +11,7 @@
    - fcitx5-pinyin-zhwiki
    - fcitx5-material-color
    - kwindowsystem
+   - catos-fcitx5-config
 - name: 其他浏览器
   description: "浏览器"
   hidden: false
@@ -83,10 +84,11 @@
   expanded: false
   critical: true
   packages:
-   - timeshift
    - grub-btrfs
    - paru
    - yay
    - octopi
    - htop
    - duperemove
+   - catos-distroshelf
+   - catos-snapper-config
