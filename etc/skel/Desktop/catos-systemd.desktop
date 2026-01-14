@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Install CatOS(advanced)
+Name[zh_CN]=安装CatOS(联网Systemd-boot)
+GenericName=Live Installer
+Comment=Install the operating system to disk
+Comment[zh_cn]=CatOS安装器-高级安装Systemd-boot
+Exec=calamares_polkit --config /usr/share/calamares-systemd
+Icon=calamares
+Terminal=false
+StartupNotify=true
+Type=Application
+Categories=Qt;System;
