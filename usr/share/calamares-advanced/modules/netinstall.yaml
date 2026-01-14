@@ -196,6 +196,7 @@
     - catos-gnome-settings
     - catos-gtk-settings
     - catos-graphite-gtk-theme
+    - gnome-shell-extension-kimpanel-git
 # - name: Hyprland-Quickshell
 #   description: "Hyprland Wayland Desktop Environment"
 #   hidden: false
@@ -345,21 +346,28 @@
   selected: false
   critical: true
   packages:
-    - lxde
     - celluloid
     - file-roller
     - galculator
     - gnome-screenshot
+    - gpicview
     - gvfs
     - gvfs-afc
     - gvfs-gphoto2
     - gvfs-mtp
     - gvfs-nfs
     - gvfs-smb
+    - lxappearance
+    - obconf-qt
+    - lxde
+    - lxde-icon-theme
+    - lxterminal
     - lightdm
     - lightdm-slick-greeter
-    - catos-lightdm-slick-theme
     - notification-daemon
+    - openbox
+    - pcmanfm
+    - lxmusic
     - network-manager-applet
     - xdg-user-dirs-gtk
     - xed
