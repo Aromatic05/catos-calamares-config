@@ -1,0 +1,9 @@
+post_install() {
+    ln -sf /usr/share/calamares-advanced/branding /usr/share/calamares-systemd/branding
+    ln -sf /usr/share/calamares-advanced/images /usr/share/calamares-systemd/images
+    ln -sf /usr/share/calamares-advanced/qml /usr/share/calamares-systemd/qml
+}
+
+post_upgrade() {
+    post_install
+}
