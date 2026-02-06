@@ -1,19 +1,27 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import os
+import sys
 import subprocess
 import shutil
 import time
+import gettext
 
 import libcalamares
 from libcalamares.utils import gettext_path, gettext_languages
 
-import gettext
+# Ensure local helper module is importable (pkgcheck.py in same directory)
+sys.path.insert(0, "/usr/lib/calamares/modules/pacstrap")
+import pkgcheck  # noqa: E402
 
-_translation = gettext.translation("calamares-python",
-                                   localedir=gettext_path(),
-                                   languages=gettext_languages(),
-                                   fallback=True)
+
+_translation = gettext.translation(
+    "calamares-python",
+    localedir=gettext_path(),
+    languages=gettext_languages(),
+    fallback=True,
+)
 _ = _translation.gettext
 _n = _translation.ngettext
 
@@ -22,14 +30,13 @@ status_update_time = 0
 
 
 class PacmanError(Exception):
-    """Exception raised when the call to pacman returns a non-zero exit code
-
-    Attributes:
-        message -- explanation of the error
-    """
+    """Raised when host-side pacman/pacstrap returns non-zero."""
 
     def __init__(self, message):
         self.message = message
+
+    def __str__(self):
+        return str(self.message)
 
 
 def pretty_name():
@@ -39,73 +46,169 @@ def pretty_name():
 def pretty_status_message():
     if custom_status_message is not None:
         return custom_status_message
+    return None
 
 
-def line_cb(line):
+def line_cb(line: str):
     """
-    Writes every line to the debug log and displays it in calamares
-    :param line: The line of output text from the command
+    Writes every line to the debug log and displays it in calamares.
     """
     global custom_status_message
     global status_update_time
+
     custom_status_message = line.strip()
     libcalamares.utils.debug("pacstrap: " + line.strip())
+
+    # Throttle UI updates a bit
     if (time.time() - status_update_time) > 0.5:
         libcalamares.job.setprogress(0)
         status_update_time = time.time()
 
 
 def run_in_host(command, line_func):
-    proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True,
-                            bufsize=1)
+    proc = subprocess.Popen(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        universal_newlines=True,
+        bufsize=1,
+    )
     for line in proc.stdout:
         if line.strip():
             line_func(line)
     proc.wait()
     if proc.returncode != 0:
-        raise PacmanError("Failed to run pacman")
+        raise PacmanError(f"Failed to run: {' '.join(command)} (rc={proc.returncode})")
+
+
+def _host_capture_lines(command):
+    """
+    Run command on host and capture stdout lines. Raises PacmanError on failure.
+    """
+    proc = subprocess.Popen(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        universal_newlines=True,
+        bufsize=1,
+    )
+    lines = []
+    for line in proc.stdout:
+        if line:
+            lines.append(line.rstrip("\n"))
+    proc.wait()
+    if proc.returncode != 0:
+        raise PacmanError(f"Failed to query: {' '.join(command)} (rc={proc.returncode})")
+    return [l for l in lines if l]
+
+
+def _has_internet():
+    # Calamares commonly uses hasInternet; your module also sets "online" at the end.
+    return bool(libcalamares.globalstorage.value("hasInternet")) or bool(
+        libcalamares.globalstorage.value("online")
+    )
+
+
+def _maybe_sync_db_host():
+    """
+    Optional pacman -Sy before pkgcheck so the local sync DB isn't stale.
+    Controlled by job config: sync_db (default True).
+    """
+    sync = libcalamares.job.configuration.get("sync_db", True)
+    if not sync:
+        libcalamares.utils.debug("sync_db disabled; skipping pacman -Sy.")
+        return
+
+    if not _has_internet():
+        libcalamares.utils.warning("No internet detected; skipping pacman -Sy before pkgcheck.")
+        return
+
+    libcalamares.utils.debug("Syncing pacman database before pkgcheck (pacman -Sy)...")
+    # Using run_in_host so output goes through line_cb for UI/log.
+    run_in_host(["pacman", "-Sy", "--noconfirm"], line_cb)
+
+
+def _build_repo_index_host():
+    """
+    Build (packages_set, groups_set) on host (live environment).
+    """
+    pkgs = set(_host_capture_lines(["pacman", "-Slq"]))
+    groups = set(_host_capture_lines(["pacman", "-Sgq"]))
+    libcalamares.utils.debug(f"[host] pacman repo index: {len(pkgs)} packages, {len(groups)} groups")
+    return pkgs, groups
 
 
 def run():
     """
-    Installs the base system packages and copies files post-installation
-
+    Installs the base system packages (pacstrap) and copies files post-installation.
+    Also filters basePackages using pkgcheck: drops missing packages/groups with warnings.
+    Optionally runs pacman -Sy before filtering (sync_db: true by default).
     """
     root_mount_point = libcalamares.globalstorage.value("rootMountPoint")
 
     if not root_mount_point:
-        return ("No mount point for root partition in globalstorage",
-                "globalstorage does not contain a \"rootMountPoint\" key, "
-                "doing nothing")
+        return (
+            "No mount point for root partition in globalstorage",
+            'globalstorage does not contain a "rootMountPoint" key, doing nothing',
+        )
 
     if not os.path.exists(root_mount_point):
-        return ("Bad mount point for root partition in globalstorage",
-                "globalstorage[\"rootMountPoint\"] is \"{}\", which does not "
-                "exist, doing nothing".format(root_mount_point))
+        return (
+            "Bad mount point for root partition in globalstorage",
+            'globalstorage["rootMountPoint"] is "{}", which does not exist, doing nothing'.format(
+                root_mount_point
+            ),
+        )
 
-    if libcalamares.job.configuration:
-        if "basePackages" in libcalamares.job.configuration:
-            base_packages = libcalamares.job.configuration["basePackages"]
-        else:
-            return "Package List Missing", "Cannot continue without list of packages to install"
-    else:
+    if not libcalamares.job.configuration:
         return "No configuration found", "Aborting due to missing configuration"
-    base_pkg = ""
-    for pkg in base_packages:
-        base_pkg = base_pkg + pkg + " "
-    # run the pacstrap
-    #os.system("pacstrap {} base linux sudo which grub dracut plymouth f2fs-tools sysfsutils systemd-sysvcompat xfsprogs".format(root_mount_point))
-    os.system("pacstrap {} {}".format(root_mount_point,base_pkg))
-    # pacstrap_command = ["/etc/calamares/scripts/pacstrap_calamares", "-c", root_mount_point] + base_packages
-    #
-    # try:
-    #     run_in_host(pacstrap_command, line_cb)
-    # except subprocess.CalledProcessError as cpe:
-    #     return "Failed to run pacstrap", "Pacstrap failed with error {!s}".format(cpe.stderr)
-    # except PacmanError as pe:
-    #     return "Failed to run pacstrap", format(pe)
 
-    # copy files post install
+    if "basePackages" not in libcalamares.job.configuration:
+        return "Package List Missing", "Cannot continue without list of packages to install"
+
+    base_packages = libcalamares.job.configuration["basePackages"]
+    if not isinstance(base_packages, list):
+        return "Bad configuration", "basePackages must be a list"
+
+    # --- NEW: optional sync + pkgcheck filtering (host-side) ---
+    try:
+        _maybe_sync_db_host()
+    except PacmanError as e:
+        # Don't abort just because sync failed; continue with existing DB.
+        libcalamares.utils.warning(f"pacman -Sy failed; continuing with existing sync DB: {e}")
+
+    try:
+        repo_pkgs, repo_groups = _build_repo_index_host()
+        base_packages = pkgcheck.filter_operation_list(
+            "basePackages",
+            base_packages,
+            repo_pkgs,
+            repo_groups,
+        )
+    except PacmanError as e:
+        libcalamares.utils.warning(str(e))
+        return "Package Manager error", "Could not query repository metadata for base system install"
+    except Exception as e:
+        libcalamares.utils.warning(f"pkgcheck failed: {e!s}")
+        return "Package Manager error", "pkgcheck failed while preparing base system package list"
+
+    if not base_packages:
+        libcalamares.utils.warning("All basePackages were filtered out (missing). Skipping pacstrap.")
+        # Keep behavior: mark "online" and finish.
+        libcalamares.globalstorage.insert("online", True)
+        libcalamares.job.setprogress(1.0)
+        return None
+
+    # --- run pacstrap (host) ---
+    pacstrap_command = ["pacstrap", root_mount_point] + base_packages
+    try:
+        run_in_host(pacstrap_command, line_cb)
+    except PacmanError as pe:
+        return "Failed to run pacstrap", format(pe)
+    except Exception as e:
+        return "Failed to run pacstrap", f"pacstrap failed: {e!s}"
+
+    # --- copy files post install ---
     if "postInstallFiles" in libcalamares.job.configuration:
         files_to_copy = libcalamares.job.configuration["postInstallFiles"]
         for source_file in files_to_copy:
@@ -116,10 +219,10 @@ def run():
                     os.makedirs(os.path.dirname(dest), exist_ok=True)
                     shutil.copy2(source_file, dest)
                 except Exception as e:
-                    libcalamares.utils.warning("Failed to copy file {!s}, error {!s}".format(source_file, e))
+                    libcalamares.utils.warning(
+                        "Failed to copy file {!s}, error {!s}".format(source_file, e)
+                    )
 
     libcalamares.globalstorage.insert("online", True)
-
     libcalamares.job.setprogress(1.0)
-
     return None
