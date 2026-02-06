@@ -1,0 +1,10 @@
+- name: AUR 软件
+  description: "选择AUR 软件"
+  hidden: false
+  selected: false
+  expanded: true
+  critical: false
+  packages:
+    - linuxqq-appimage
+    - wechat-appimage
+
