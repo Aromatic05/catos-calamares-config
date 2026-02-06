@@ -122,7 +122,9 @@
         selected: true
         packages:
           - btop
+          - htop
           - duf
+          - duperemove
           - findutils
           - fsarchiver
           - git

@@ -7,3 +7,4 @@ catos-calamares-config/**
 __pycache__/
 *.pyc
 .vscode/
+.venv/  
