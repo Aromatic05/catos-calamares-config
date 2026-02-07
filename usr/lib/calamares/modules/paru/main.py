@@ -10,6 +10,7 @@
 #
 
 import subprocess
+import threading
 from string import Template
 import gettext
 
@@ -128,13 +129,15 @@ class ParuManager:
         self.paru_num_retries = paru_cfg.get("num_retries", 0)
         self.paru_disable_timeout = paru_cfg.get("disable_download_timeout", False)
         self.paru_needed_only = paru_cfg.get("needed_only", False)
+        # timeout in seconds for a single paru invocation; 0 or missing means no timeout
+        self.paru_timeout = paru_cfg.get("timeout", 0)
 
         self.in_package_changes = False
         self.progress_fraction = 0.0
 
         # Ensure sudoers entry so nobody can run pacman without password
         pacman_path = shutil.which("pacman") or "/usr/bin/pacman"
-        sudoers_line = f"nobody ALL=(ALL) NOPASSWD: {pacman_path}\n"
+        sudoers_line = f"nobody ALL=(ALL) NOPASSWD: {pacman_path}"
         # Create inside target: simplest through sh -c redirection
         try:
             libcalamares.utils.target_env_process_output(
@@ -148,6 +151,29 @@ class ParuManager:
             )
         except subprocess.CalledProcessError:
             libcalamares.utils.warning("Failed to create sudoers entry for paru (ignored).")
+
+        # Ensure cache dir exists and is writable by nobody, and ensure nobody is not expired
+        try:
+            libcalamares.utils.target_env_process_output(
+                [
+                    "sh",
+                    "-c",
+                    "mkdir -p /var/cache/paru_cache && chown nobody:nobody /var/cache/paru_cache",
+                ]
+            )
+        except subprocess.CalledProcessError:
+            libcalamares.utils.warning("Failed to prepare /var/cache/paru_cache (ignored).")
+
+        try:
+            libcalamares.utils.target_env_process_output(
+                [
+                    "sh",
+                    "-c",
+                    "chage -E -1 nobody",
+                ]
+            )
+        except subprocess.CalledProcessError:
+            libcalamares.utils.warning("Failed to set account expiry for nobody (ignored).")
 
         def line_cb(line: str):
             if line.startswith(":: "):
@@ -172,8 +198,9 @@ class ParuManager:
         # Keep paru cache in a writable location in target
         import os
 
-        os.environ["PWD"] = "/var/cache"
-        os.environ["XDG_CACHE_HOME"] = "/var/cache"
+        os.environ["PWD"] = "/var/cache/paru_cache"
+        os.environ["XDG_CACHE_HOME"] = "/var/cache/paru_cache"
+        os.environ["XDG_DATA_HOME"] = "/var/cache/paru_cache"
 
     def run_paru(self, command, callback=False):
         """
@@ -187,11 +214,71 @@ class ParuManager:
         while attempts <= self.paru_num_retries:
             attempts += 1
             try:
-                if callback:
-                    libcalamares.utils.target_env_process_output(command, self.line_cb)
-                else:
-                    libcalamares.utils.target_env_process_output(command)
-                return True
+                # If no timeout configured, call directly as before
+                if not self.paru_timeout:
+                    if callback:
+                        libcalamares.utils.target_env_process_output(command, self.line_cb)
+                    else:
+                        libcalamares.utils.target_env_process_output(command)
+                    return True
+
+                # With timeout: run the target call in a thread and wait
+                result_container = {"exc": None}
+
+                def target_call():
+                    try:
+                        if callback:
+                            libcalamares.utils.target_env_process_output(command, self.line_cb)
+                        else:
+                            libcalamares.utils.target_env_process_output(command)
+                    except Exception as e:
+                        result_container["exc"] = e
+
+                th = threading.Thread(target=target_call)
+                th.daemon = True
+                th.start()
+                th.join(timeout=self.paru_timeout)
+
+                if th.is_alive():
+                    # timed out: best-effort kill any paru process running as nobody inside target
+                    libcalamares.utils.warning(
+                        "paru command timed out after {!s}s (attempting to terminate, ignored).".format(
+                            self.paru_timeout
+                        )
+                    )
+                    try:
+                        libcalamares.utils.target_env_process_output([
+                            "sudo",
+                            "-E",
+                            "-u",
+                            "nobody",
+                            "pkill",
+                            "-f",
+                            "paru",
+                        ])
+                    except Exception:
+                        # ignore any failure to kill
+                        pass
+                    # emulate a CalledProcessError to go to retry logic / logging
+                    last_exc = subprocess.CalledProcessError(returncode=124, cmd=command)
+                    if attempts <= self.paru_num_retries:
+                        continue
+                    break
+
+                # Thread finished: check for exceptions
+                if result_container["exc"] is None:
+                    return True
+                # If it raised a CalledProcessError, propagate to retry handling
+                if isinstance(result_container["exc"], subprocess.CalledProcessError):
+                    last_exc = result_container["exc"]
+                    if attempts <= self.paru_num_retries:
+                        continue
+                    break
+                # Other exceptions: wrap and treat as failure
+                last_exc = result_container["exc"]
+                if attempts <= self.paru_num_retries:
+                    continue
+                break
             except subprocess.CalledProcessError as e:
                 last_exc = e
                 if attempts <= self.paru_num_retries:

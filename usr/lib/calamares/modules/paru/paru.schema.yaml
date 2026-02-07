@@ -22,6 +22,7 @@ properties:
             num_retries: { type: integer, default: 0 }
             disable_download_timeout: { type: boolean, default: false }
             needed_only: { type: boolean, default: false }
+            timeout: { type: integer, default: 0, minimum: 0 }
 
     operations:
         type: array

@@ -1,6 +1,6 @@
 pkgname=catos-calamares-config
-pkgver=26.01
-pkgrel=4
+pkgver=26.02
+pkgrel=1
 pkgdesc="calamares for CatOS"
 arch=('any')
 url="https://github.com/arch-linux-calamares-installer"
