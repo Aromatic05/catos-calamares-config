@@ -277,8 +277,7 @@
         packages:
           - cosmic
           - notification-daemon
-          - sddm
-          - catos-sddm-theme
+          - cosmic-greeter
           - xdg-desktop-portal-cosmic
           - xorg-xwayland
       - name: "Budgie-Desktop"
