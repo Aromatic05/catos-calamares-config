@@ -350,6 +350,7 @@
           - xed
           - catos-gtk-settings
           - catos-graphite-gtk-theme
+          - tela-circle-icon-theme-all
       - name: "LXQT-Desktop"
         description: "The Lightweight Qt Desktop Environment."
         hidden: false
@@ -381,6 +382,7 @@
           - catos-gtk-settings
           - catos-graphite-gtk-theme
           - xsettingsd
+          - tela-circle-icon-theme-all
       - name: "MATE-Desktop"
         description: "MATE Desktop - the continuation of GNOME 2"
         hidden: false
@@ -426,6 +428,7 @@
           - accountsservice
           - gvfs
           - qt5-quickcontrols
+          - tela-circle-icon-theme-all
 - name: "CPU specific Microcode update packages"
   description: "Microcode update image for AMD and Intel CPU"
   hidden: false
