@@ -63,6 +63,7 @@
           - xdg-utils
           - nwg-look
           - catos-bibata-cursor
+          - catos-hello
       - name: "filesystem"
         description: "Filesystem tools and apps"
         selected: true
