@@ -7,7 +7,6 @@ url="https://github.com/arch-linux-calamares-installer"
 license=('GPL3')
 makedepends=('git')
 provides=("$pkgname")
-install="${pkgname}.install"
 conflicts=('alci-calamares-config'
            'alci-calamares-config-dev'
            'alci-calamares-config-pure'
