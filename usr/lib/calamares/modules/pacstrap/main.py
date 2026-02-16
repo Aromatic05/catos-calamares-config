@@ -170,6 +170,51 @@ def run():
     if not isinstance(base_packages, list):
         return "Bad configuration", "basePackages must be a list"
 
+
+    # --- Add bootloader and rootfs-specific packages (if available) ---
+    bootloader = libcalamares.globalstorage.value("bootloader@packagechooser")
+
+    if not bootloader:
+        libcalamares.utils.warning("Failed to determine bootloader type; continuing without bootloader-specific packages")
+    else:
+        libcalamares.utils.debug(f"Current bootloader: {bootloader}")
+        try:
+            curr_filesystem = (
+                subprocess.run(
+                    ["findmnt", "-ln", "-o", "FSTYPE", root_mount_point],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.DEVNULL,
+                )
+                .stdout.decode("utf-8")
+                .strip()
+            )
+        except Exception:
+            curr_filesystem = ""
+
+        is_root_on_zfs = (curr_filesystem == "zfs")
+        is_root_on_btrfs = (curr_filesystem == "btrfs")
+
+        if bootloader == "grub":
+            base_packages += ["grub", "catos-grub-theme-dark", "os-prober"]
+        elif bootloader == "limine":
+            base_packages += ["limine"]
+        elif bootloader == "refind":
+            base_packages += ["refind"]
+        elif bootloader == "systemd-boot":
+            base_packages += ["catos-systemd-boot-config"]
+
+        if is_root_on_zfs:
+            base_packages += ["zfs-utils", "zfs-dkms", "libunwind"]
+        elif is_root_on_btrfs:
+            libcalamares.utils.debug("Root on BTRFS")
+            if bootloader == "limine":
+                base_packages += ["snapper", "btrfs-assistant"]
+            elif bootloader == "grub":
+                base_packages += ["snapper", "btrfs-assistant", "grub-btrfs"]
+            elif bootloader == "refind":
+                base_packages += ["snapper", "btrfs-assistant"]
+
+
     # --- NEW: optional sync + pkgcheck filtering (host-side) ---
     try:
         _maybe_sync_db_host()
