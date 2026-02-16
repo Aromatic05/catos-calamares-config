@@ -64,35 +64,50 @@
   expanded: true
   critical: true
   subgroups:
+      - name: "LTS Kernel"
+        description: "LTS Kernel, ZFS 用户需要选择, 且不应该选择其他内核"
+        selected: true
+        packages:
+          - linux-lts
+          - linux-lts-headers
+      - name: "Mainline Kernel"
+        description: "Mainline Kernel"
+        selected: false
+        packages:
+          - linux
+          - linux-headers
       - name: "Zen Kernel"
         description: "Zen Kernel"
         selected: false
         packages:
           - linux-zen
           - linux-zen-headers
-      - name: "LTS Kernel"
-        description: "LTS Kernel"
-        selected: false
-        packages:
-          - linux-lts
-          - linux-lts-headers
       - name: "Hardened Kernel"
         description: "Hardened Kernel"
         selected: false
         packages:
           - linux-hardened
           - linux-hardened-headers
-- name: "Snapshot&Subsystem Tools"
-  description: "快照与子系统工具, 建议Btrfs用户选择, 不需要可以不选"
+- name: "Snapshot"
+  description: "快照工具, 建议Btrfs用户选择, 不需要可以不选"
   hidden: false
-  selected: true
+  selected: false
   expanded: false
   critical: true
   packages:
     - grub-btrfs
     - btrfs-assistant
     - catos-snapper-config
+- name: "Linux Subsystem"
+  description: "CatOS linux subsystem"
+  hidden: false
+  selected: true
+  expanded: false
+  critical: false
+  packages:
     - catos-distroshelf
+    - distrobox
+    - podman
 - name: "Virtualization Tools"
   description: "虚拟化工具"
   hidden: false
