@@ -172,7 +172,7 @@ def run():
 
 
     # --- Add bootloader and rootfs-specific packages (if available) ---
-    bootloader = libcalamares.globalstorage.value("bootloader@packagechooser")
+    bootloader = libcalamares.globalstorage.value("packagechooser_bootloader")
 
     if not bootloader:
         libcalamares.utils.warning("Failed to determine bootloader type; continuing without bootloader-specific packages")
@@ -204,7 +204,7 @@ def run():
             base_packages += ["catos-systemd-boot-config"]
 
         if is_root_on_zfs:
-            base_packages += ["zfs-utils", "zfs-dkms", "libunwind"]
+            base_packages += ["zfs-utils", "zfs-dkms", "libunwind", "linux-lts", "linux-lts-headers"]
         elif is_root_on_btrfs:
             libcalamares.utils.debug("Root on BTRFS")
             if bootloader == "limine":
@@ -213,6 +213,9 @@ def run():
                 base_packages += ["snapper", "btrfs-assistant", "grub-btrfs"]
             elif bootloader == "refind":
                 base_packages += ["snapper", "btrfs-assistant"]
+        
+        if not is_root_on_zfs:
+            base_packages += ["linux", "linux-headers"]
 
 
     # --- NEW: optional sync + pkgcheck filtering (host-side) ---
