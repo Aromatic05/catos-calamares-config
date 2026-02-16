@@ -181,7 +181,7 @@
           - tela-icon-theme-git
           - catos-kde-settings
           - catos-kde-theme
-          - kwin-decoration-sierra-breeze-enhanced-for-catos
+          - kwin-decoration-sierra-breeze-enhanced
       - name: "GNOME-Desktop"
         description: "GNOME Desktop - designed to put you in control and get things done."
         hidden: false
