@@ -197,7 +197,7 @@ def run():
         if bootloader == "grub":
             base_packages += ["grub", "catos-grub-theme-dark", "os-prober"]
         elif bootloader == "limine":
-            base_packages += ["limine", "limine-entry-tool"]
+            base_packages += ["limine", "limine-mkinitcpio-hook"]
         elif bootloader == "refind":
             base_packages += ["refind"]
         elif bootloader == "systemd-boot":
