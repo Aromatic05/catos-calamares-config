@@ -8,10 +8,10 @@ pacman-key --init
 # Update cachyos-keyring first since archlinux-keyring is taken from cachyos
 # repo. Also try to make multiple attempts in case of failures due to unsynced
 # mirrors.
-for ((i=0; i<5; i++)); do pacman -Sy --noconfirm --needed archlinux-keyring && break; done
-for ((i=0; i<5; i++)); do pacman -Sy --noconfirm --needed archlinuxcn-keyring && break; done
 pacman-key --recv-keys 3A9917BF0DED5C13F69AC68FABEC0A1208037BE9
 pacman-key --lsign-key 3A9917BF0DED5C13F69AC68FABEC0A1208037BE9
 pacman-key --recv-keys 7931B6D628C8D3BA
 pacman-key --lsign-key 7931B6D628C8D3BA
+for ((i=0; i<5; i++)); do pacman -Sy --noconfirm --needed archlinux-keyring && break; done
+for ((i=0; i<5; i++)); do pacman -Sy --noconfirm --needed archlinuxcn-keyring && break; done
 pacman-key --populate
