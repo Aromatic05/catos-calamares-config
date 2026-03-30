@@ -57,6 +57,7 @@
     - alacritty
     - kitty
     - ghostty
+    - foot
 - name: "Extra Kernels"
   description: "额外的内核"
   hidden: false
@@ -66,7 +67,7 @@
   subgroups:
       - name: "LTS Kernel"
         description: "LTS Kernel, ZFS 用户需要选择, 且不应该选择其他内核"
-        selected: true
+        selected: false
         packages:
           - linux-lts
           - linux-lts-headers

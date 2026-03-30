@@ -3,8 +3,12 @@
   selected: false
   expanded: true
   packages:
+    - linuxqq
     - linuxqq-appimage
+    - linuxqq-nt-bwrap
+    - wechat-bin
     - wechat-appimage
+    - wechat-universal-bwrap
     - wemeet-bin
 - name: "Productivity"
   description: "生产力工具"
