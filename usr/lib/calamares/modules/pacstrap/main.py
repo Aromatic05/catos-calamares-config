@@ -205,14 +205,6 @@ def run():
 
         if is_root_on_zfs:
             base_packages += ["zfs-utils", "zfs-dkms", "libunwind", "linux-lts", "linux-lts-headers"]
-        elif is_root_on_btrfs:
-            libcalamares.utils.debug("Root on BTRFS")
-            if bootloader == "limine":
-                base_packages += ["snapper", "btrfs-assistant"]
-            elif bootloader == "grub":
-                base_packages += ["snapper", "btrfs-assistant", "grub-btrfs"]
-            elif bootloader == "refind":
-                base_packages += ["snapper", "btrfs-assistant"]
         
         if not is_root_on_zfs:
             base_packages += ["linux", "linux-headers"]
