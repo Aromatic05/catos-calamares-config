@@ -39,5 +39,5 @@ echo 'Server = https://mirrors.xjtu.edu.cn/archlinux/$repo/os/$arch' >> /etc/pac
 echo 'Server = https://mirrors.shanghaitech.edu.cn/archlinux/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
 
 ##fcitx5
-ELECTRON_OZONE_PLATFORM_HINT=auto
-XMODIFIERS=@im=fcitx
+echo 'ELECTRON_OZONE_PLATFORM_HINT=auto' >> /etc/environment
+echo 'XMODIFIERS=@im=fcitx' >> /etc/environment
