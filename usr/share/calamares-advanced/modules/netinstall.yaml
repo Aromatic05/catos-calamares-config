@@ -222,7 +222,8 @@
           - ghostty
           - wf-recorder
           - quickshell-git
-          - catos-niri-dms
+          # - catos-niri-dms
+          - shorin-niri-dms
           - tela-circle-icon-theme-all
       - name: "Niri-noctalia"
         description: "Niri is a dynamic tiling window manager for X11 and Wayland, written in Rust. It features a unique dynamic tiling layout, extensive customization options, and support for both X11 and Wayland display servers."
