@@ -1,5 +1,5 @@
 - name: "Chat Clients"
-  description: "聊天客户端"
+  description: "聊天客户端, 不同版本的客户端不可同时安装"
   selected: false
   expanded: true
   packages:
